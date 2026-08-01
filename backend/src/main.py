@@ -27,6 +27,28 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
+    # Startup event to ensure MinIO bucket exists
+    @app.on_event("startup")
+    async def startup_event():
+        settings = get_settings()
+        try:
+            minio_client = Minio(
+                settings.MINIO_ENDPOINT,
+                access_key=settings.MINIO_ACCESS_KEY,
+                secret_key=settings.MINIO_SECRET_KEY,
+                secure=settings.MINIO_SECURE,
+            )
+            bucket_name = settings.MINIO_BUCKET
+            if not minio_client.bucket_exists(bucket_name):
+                minio_client.make_bucket(bucket_name)
+                logger.info(f"Created MinIO bucket: {bucket_name}")
+            else:
+                logger.info(f"MinIO bucket already exists: {bucket_name}")
+        except Exception as e:
+            logger.error(f"Failed to ensure MinIO bucket exists on startup: {e}")
+            # We don't fail the startup because the health check will report the issue
+            # and we might still want the API to start for other endpoints.
+
     # Health check endpoint
     @app.get("/health")
     async def health_check(settings: Settings = Depends(get_settings)):
@@ -69,7 +91,7 @@ def create_app() -> FastAPI:
             checks["redis"] = f"failed: {str(e)}"
             overall_status = "failed"
 
-        # Check Minio
+        # Check MinIO
         try:
             minio_client = Minio(
                 settings.MINIO_ENDPOINT,
@@ -79,8 +101,7 @@ def create_app() -> FastAPI:
             )
             # Check if bucket exists
             if not minio_client.bucket_exists(settings.MINIO_BUCKET):
-                # Try to create it (if permissions allow)
-                minio_client.make_bucket(settings.MINIO_BUCKET)
+                raise Exception(f"Bucket {settings.MINIO_BUCKET} does not exist")
             checks["minio"] = "ok"
         except S3Error as e:
             logger.error(f"MinIO health check failed: {e}")

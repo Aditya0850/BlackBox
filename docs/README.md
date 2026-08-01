@@ -98,7 +98,7 @@ blackbox/
    - Build and start the backend (FastAPI) container
    - Build and start the frontend (React/Vite) container
    - Apply database migrations (creating schemas and roles)
-   - Create the MinIO evidence bucket if it doesn't exist
+   - Create the MinIO evidence bucket on backend startup if it doesn't exist
 
 3. Wait for all services to become healthy (check docker compose logs).
 
@@ -145,6 +145,35 @@ Once all services are running, verify the following:
    ```
    Should return `PONG`.
 
+### Dependency Failure Testing
+To verify the health check correctly reports failures, you can stop a dependency and check the endpoint.
+
+Example: Stop Redis
+```bash
+docker compose stop redis
+```
+Then call the health endpoint:
+```bash
+curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/health
+```
+Should return `503`.
+
+The response body will show which dependency failed:
+```bash
+curl -s http://localhost:8000/health
+```
+Example output when Redis is down:
+```json
+{
+  "status": "failed",
+  "checks": {
+    "postgres": "ok",
+    "redis": "failed: Connection refused",
+    "minio": "ok"
+  }
+}
+```
+
 ### Environment Variables
 The backend expects a `.env` file in the `backend/` directory. A sample is provided below (already included in the repository):
 
@@ -174,7 +203,7 @@ These values match the service names used in `docker-compose.yml`.
 - **Description**: Performs real-time checks of all critical dependencies:
   - PostgreSQL: Executes `SELECT 1` and verifies that `intel` and `audit` schemas exist
   - Redis: Sends a `PING` command
-  - MinIO: Verifies connectivity and ensures the `evidence` bucket exists (creates it if missing)
+  - MinIO: Verifies connectivity and ensures the `evidence` bucket exists (created on startup if missing)
 - **Response**:
   - `200 OK`: All dependencies are healthy
   - `503 Service Unavailable`: One or more dependencies are unhealthy, with details in the response body
