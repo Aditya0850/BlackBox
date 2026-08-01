@@ -1,93 +1,20 @@
-version: '3.8'
-
-services:
-  db:
-    image: postgres:15-alpine
-    container_name: blackbox_db
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      POSTGRES_DB: ${POSTGRES_DB:-blackbox}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  minio:
-    image: minio/minio
-    container_name: blackbox_minio
-    restart: unless-stopped
-    command: server /data --console-address ":9001"
-    volumes:
-      - minio_data:/data
-    environment:
-      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-minioadmin}
-      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-minioadmin}
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
-
-  redis:
-    image: redis:7-alpine
-    container_name: blackbox_redis
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: blackbox_backend
-    restart: unless-stopped
-    env_file:
-      - ./backend/.env
-    depends_on:
-      db:
-        condition: service_healthy
-      minio:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./backend/src:/app/src:ro
-      - ./backend/alembic:/app/alembic:ro
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: blackbox_frontend
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend/src:/app/src:ro
-      - ./frontend/public:/app/public:ro
-    depends_on:
-      - backend
-
-volumes:
-  postgres_data:
-  minio_data:
-  redis_data:
+frontend:
+      build:
+        context: ./frontend
+        dockerfile: Dockerfile
+      container_name: blackbox_frontend
+      restart: unless-stopped
+      ports:
+        - "3000:3000"
+      volumes:
+        - ./frontend/src:/app/src:ro
+        - ./frontend/public:/app/public:ro
+        - ./frontend/vite.config.ts:/app/vite.config.ts:ro
+        - ./frontend/tsconfig.json:/app/tsconfig.json:ro
+        - ./frontend/tsconfig.node.json:/app/tsconfig.node.json:ro
+        - /app/node_modules
+        - /app/.vite
+      environment:
+        - CHOKIDAR_USEPOLLING=true
+      depends_on:
+        - backend

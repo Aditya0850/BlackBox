@@ -6,6 +6,9 @@ import redis.asyncio as redis
 from minio import Minio
 from minio.error import S3Error
 import logging
+from alembic import command
+from alembic.config import Config
+import os
 
 from .config import get_settings, Settings
 
@@ -27,10 +30,11 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
-    # Startup event to ensure MinIO bucket exists
+    # Startup event to ensure MinIO bucket exists and run migrations
     @app.on_event("startup")
     async def startup_event():
         settings = get_settings()
+        # Ensure MinIO bucket exists
         try:
             minio_client = Minio(
                 settings.MINIO_ENDPOINT,
@@ -47,7 +51,24 @@ def create_app() -> FastAPI:
         except Exception as e:
             logger.error(f"Failed to ensure MinIO bucket exists on startup: {e}")
             # We don't fail the startup because the health check will report the issue
-            # and we might still want the API to start for other endpoints.
+
+        # Run database migrations
+        try:
+            # Construct the database URL for Alembic (using psycopg2, not asyncpg)
+            db_url = f"postgresql://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@{settings.POSTGRES_SERVER}:{settings.POSTGRES_PORT}/{settings.POSTGRES_DB}"
+            # Alembic configuration
+            alembic_cfg = Config()
+            # Set the script location to the alembic directory relative to this file
+            # We need to get the absolute path to the alembic directory inside the container
+            # Assuming the alembic directory is copied to /app/alembic
+            alembic_cfg.set_main_option("script_location", "/app/alembic")
+            alembic_cfg.set_main_option("sqlalchemy.url", db_url)
+            # Run the migration
+            command.upgrade(alembic_cfg, "head")
+            logger.info("Database migrations applied successfully")
+        except Exception as e:
+            logger.error(f"Failed to apply database migrations on startup: {e}")
+            # We don't fail the startup because the health check will report the issue
 
     # Health check endpoint
     @app.get("/health")
