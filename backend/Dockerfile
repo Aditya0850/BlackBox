@@ -14,13 +14,14 @@ COPY src ./src
 COPY alembic ./alembic
 COPY alembic.ini .
 
-# Create a non-root user
+# Create a non-root user and set permissions
 RUN useradd --create-home appuser
-WORKDIR /home/appuser
+RUN chown -R appuser:appuser /app
 USER appuser
 
 # Expose the port the app runs on
 EXPOSE 8000
 
-# Run the application
+# Set Python path and run the application
+ENV PYTHONPATH=/app
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
