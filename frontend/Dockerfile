@@ -13,4 +13,4 @@ COPY . .
 EXPOSE 3000
 
 # Run the application in development mode
-CMD ["npm", "run", "dev", "--", "--host"]
+CMD ["npm", "run", "dev", "--", "--host", "--port", "3000"]
