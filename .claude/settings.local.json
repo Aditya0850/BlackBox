@@ -7,7 +7,12 @@
       "Bash(ls -la *.md)",
       "Bash(alembic revision:*)",
       "Bash(pip install:*)",
-      "Bash(docker compose up:*)"
+      "Bash(docker compose up:*)",
+      "Bash(python -m py_compile backend/src/config.py backend/src/main.py backend/src/pipeline/contracts.py)",
+      "Bash(python -c \"from src.domain.value_objects import *; from src.domain.entities import *; from src.domain.events import *; from src.pipeline.contracts import *; from src.pipeline.orchestrator import *; from src.infrastructure.db.models import *; from src.infrastructure.db.database import *; from src.infrastructure.db.repositories import *; from src.infrastructure.storage import *; from src.infrastructure.queue import *; from src.infrastructure.plugins import *; from src.pipeline.stages import *; print\\('All imports OK'\\)\")",
+      "Bash(python -m pytest src/tests/unit/test_value_objects.py -v)",
+      "Bash(python -m pytest src/tests/unit/test_entities.py -v)",
+      "Bash(python -m pytest src/tests/unit/test_pipeline_contracts.py -v)"
     ]
   }
 }

@@ -9,10 +9,11 @@ from sqlalchemy import engine_from_config, pool
 from sqlalchemy import text
 from alembic import context
 
-# Add the src directory to the path so we can import our config
+# Add the src directory to the path so we can import our config and models
 sys.path.append(str(Path(__file__).parent.parent / "src"))
 
 from config import get_settings
+from infrastructure.db.models import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -34,9 +35,8 @@ config.set_main_option(
 )
 
 # target_metadata for our 'autogenerate' support
-# We don't have any models yet, so we set to None.
-# When we start adding models, we'll import them here.
-target_metadata = None
+target_metadata = Base.metadata
+
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.
@@ -53,10 +53,13 @@ def run_migrations_offline():
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
+        include_schemas=True,
+        version_table_schema="intel",
     )
 
     with context.begin_transaction():
         context.run_migrations()
+
 
 def run_migrations_online():
     """Run migrations in 'online' mode.
@@ -65,10 +68,10 @@ def run_migrations_online():
     """
     # This callback is used to prevent an auto-migration from being generated
     # when there are no changes to the schema.
-    # def process_revision_directives(context, revision, directives):
-    #     if getattr(config.cmd_opts, 'autogenerate', False):
-    #         if directives[0]:
-    #             logger.info("No changes in schema detected.")
+    def process_revision_directives(context, revision, directives):
+        if getattr(config.cmd_opts, 'autogenerate', False):
+            if directives[0]:
+                logger.info("No changes in schema detected.")
 
     connectable = engine_from_config(
         config.get_section(config.config_ini_section),
@@ -78,50 +81,31 @@ def run_migrations_online():
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection,
+            target_metadata=target_metadata,
+            include_schemas=True,
+            version_table_schema="intel",
+            process_revision_directives=process_revision_directives,
         )
 
         with context.begin_transaction():
-            # We'll run our custom migration steps here
+            # Run our custom migration steps here
             # Create schemas and role if they don't exist
             connection.execute(text("CREATE SCHEMA IF NOT EXISTS intel"))
             connection.execute(text("CREATE SCHEMA IF NOT EXISTS audit"))
-            # Create a role for the audit schema with INSERT/SELECT only
-            # We'll create a role named 'audit_writer' that the application will use
-            # But note: the application will use a different role for the intel schema.
-            # For simplicity, we'll create a role that can be used by the application
-            # and then grant appropriate privileges.
-            # However, the requirement is that the audit role cannot UPDATE or DELETE.
-            # We'll create a role and grant it INSERT and SELECT on audit schema.
-            # We'll also need to create a role for the intel schema (for application use)
-            # but that will be done in a later migration when we create tables.
-            # For now, we just create the schemas and the audit role with restricted privileges.
+            connection.execute(text("CREATE SCHEMA IF NOT EXISTS notebook"))
 
-            # Check if role exists, if not create it
-            # We'll use a role named 'blackbox_app' for the application to connect as.
-            # But the audit events should be written by a role that only has INSERT/SELECT on audit.
-            # We'll create two roles: one for the application (with full access to intel) and
-            # one for audit writes (with only INSERT/SELECT on audit).
-            # However, the application will need to write to audit events, so the application role
-            # must have INSERT on audit.events (but we don't have the table yet).
-            # We'll handle that when we create the table.
-
-            # For now, let's create a role for the application and grant it usage on schemas.
-            # We'll refine this in later migrations.
-
-            # Create a role for the application (if not exists)
+            # Create a role for the application
             connection.execute(text("DO $$ BEGIN IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = 'blackbox_app') THEN CREATE ROLE blackbox_app LOGIN PASSWORD 'blackbox_app_password'; END IF; END $$;"))
-            # Grant usage on schemas to the application role
             connection.execute(text("GRANT USAGE ON SCHEMA intel TO blackbox_app"))
             connection.execute(text("GRANT USAGE ON SCHEMA audit TO blackbox_app"))
+            connection.execute(text("GRANT USAGE ON SCHEMA notebook TO blackbox_app"))
 
-            # Create a role for audit writes (if not exists) - this role will be used by the application to write audit events
-            # but we will restrict it later when we have the table.
+            # Create a role for audit writes
             connection.execute(text("DO $$ BEGIN IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = 'audit_writer') THEN CREATE ROLE audit_writer LOGIN PASSWORD 'audit_writer_password'; END IF; END $$;"))
-            # Grant usage on audit schema to audit_writer
             connection.execute(text("GRANT USAGE ON SCHEMA audit TO audit_writer"))
 
-            # We will grant specific privileges on tables when they are created in later migrations.
+            context.run_migrations()
 
     # Note: The above transaction will be committed when the context exits.
 

@@ -11,3 +11,7 @@ python-dotenv==1.0.0
 asyncpg==0.29.0
 pytest==7.4.3
 pytest-asyncio==0.23.2
+# Additional dependencies for pipeline stages
+Pillow==10.1.0
+pytesseract==0.3.10
+pypdf==3.17.0
