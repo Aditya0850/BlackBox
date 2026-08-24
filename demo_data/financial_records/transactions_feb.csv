@@ -1,0 +1,7 @@
+transaction_id,date,type,amount,account_number,counterparty_account,description
+TXN007,2026-02-01,NEFT,55000.00,ST001,VS001,Payment for consignment delivery - Feb Week 1
+TXN008,2026-02-03,CASH_DEPOSIT,16000.00,VS001,,Cash deposit from delivery proceeds
+TXN009,2026-02-05,NEFT,70000.00,ST001,VS001,Payment for consignment delivery - Feb Week 2
+TXN010,2026-02-08,CASH_DEPOSIT,22000.00,VS001,,Cash deposit from delivery proceeds
+TXN011,2026-02-10,NEFT,65000.00,ST001,VS001,Payment for consignment delivery - Feb Week 3
+TXN012,2026-02-12,CASH_DEPOSIT,19000.00,VS001,,Cash deposit from delivery proceeds

@@ -1,0 +1,58 @@
+POLICE REPORT: PR/IND/2026/00123
+DATE: 16-01-2026
+POLICE STATION: NEHRU NAGAR, INDORE
+REPORTING OFFICER: SUB-INSPECTOR RAMESH KUMAR
+BADGE NO: IND/PS/3098
+
+REFERENCE: FIR NO: IND/2026/00123 dated 15-01-2026
+
+SUMMARY OF INVESTIGATION AS OF 16-01-2026:
+
+1. TECHNICAL SURVEILLANCE RESULTS:
+   - Phone number 98765 43210 (Rajesh Kumar) placed under technical surveillance on 15-01-2026
+   - Call detail records analyzed for period 14-01-2026 to 16-01-2026
+   - Observed frequent communication with number ending in 32109 (Priya Sharma)
+   - Observed communication with number ending in 21098 (Vikram Singh)
+   - Noted use of another number ending in 6655 (burner phone) for short duration calls
+
+2. PHYSICAL SURVEILLANCE:
+   - Surveillance team deployed at 123 MG Road, Indore (complainant's property)
+   - Observed multiple visitors to premises during late hours
+   - Noted exchange of small packets between tenant and visitors
+   - Vehicle logs maintained for all visitors
+
+3. FINANCIAL INVESTIGATION:
+   - Request sent to bank for account details of Suspects
+   - Preliminary review shows:
+     * Account ending in 001 (Shyam Traders) received multiple NEFT transfers
+     * Account ending in 001 showed cash deposits shortly after large transfers
+     * Account ending in 002 (Vikram Singh) shows regular cash deposits
+
+4. VEHICLE VERIFICATION:
+   - MH02 AB 1234: Registered to Rajesh Kumar, address 123 MG Road, Indore
+   - MP04 CD 5678: Registered to Shyam Traders, address 456 Palace Colony, Bhopal
+   - MH02 EF 9012: Registered to Vikram Singh, address 789 VIP Road, Indore
+
+5. WITNESS STATEMENTS COLLECTED:
+   - Statement from auto-rickshaw driver who observed exchanges at VIP Road area
+   - Statement from tea stall owner near Nehru Nagar Bus Stand
+   - Statement from society secretary at 123 MG Road building
+
+PRELIMINARY ASSESSMENT:
+Based on technical surveillance, physical observation, and financial trails, there is strong suspicion of:
+- Drug supply chain: Rajesh Kumar (supplier) -> Priya Sharma (financier/logistics) -> Vikram Singh (courier)
+- Money laundering: Large transfers to Shyam Traders account followed by cash withdrawals
+- Use of burner phones for operational security
+- Specific location (789 VIP Road, Indore) used for exchange and temporary storage
+
+RECOMMENDATIONS:
+1. Continue technical surveillance on all three numbers
+2. Conduct controlled delivery to gather more evidence
+3. Expand financial investigation to trace money trail
+4. Conduct raid on 789 VIP Road, Indore during suspected exchange hours
+5. Arrest suspects based on gathered evidence
+
+CASE STATUS: UNDER INVESTIGATION - PRIORITY HIGH
+
+REPORTED BY: SUB-INSPECTOR RAMESH KUMAR
+VERIFIED BY: INSPECTOR ANITA DESAI

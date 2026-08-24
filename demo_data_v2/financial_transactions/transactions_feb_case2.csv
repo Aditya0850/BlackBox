@@ -1,0 +1,21 @@
+transaction_id,date,type,amount,account_number,counterparty_account,description,branch,reference
+TXN201,2026-02-01,NEFT,300000.00,SK001,VS001,Payment for machinery parts import - Lot 1,Habibganj Branch,REF/IMP/2026/001
+TXN202,2026-02-03,CASH_WITHDRAWAL,75000.00,SK001,,Cash withdrawal for operational expenses,Habibganj Branch,REF/IMP/2026/001-WD
+TXN203,2026-02-05,NEFT,250000.00,SK001,VS001,Payment for machinery parts import - Lot 2,Habibganj Branch,REF/IMP/2026/002
+TXN204,2026-02-08,CASH_DEPOSIT,60000.00,SK001,,Cash deposit from local collections,Habibganj Branch,REF/IMP/2026/002-CD
+TXN205,2026-02-10,NEFT,350000.00,SK001,VS001,Payment for machinery parts import - Lot 3,Habibganj Branch,REF/IMP/2026/003
+TXN206,2026-02-12,CASH_WITHDRAWAL,80000.00,SK001,,Cash withdrawal for staff salaries,Habibganj Branch,REF/IMP/2026/003-WD
+TXN207,2026-02-15,NEFT,200000.00,SK001,VS001,Payment for machinery parts import - Lot 4,Habibganj Branch,REF/IMP/2026/004
+TXN208,2026-02-18,CASH_DEPOSIT,50000.00,SK001,,Cash deposit from local collections,Habibganj Branch,REF/IMP/2026/004-CD
+TXN209,2026-02-20,NEFT,180000.00,SK001,VS001,Payment for machinery parts import - Lot 5,Habibganj Branch,REF/IMP/2026/005
+TXN210,2026-02-22,CASH_DEPOSIT,45000.00,SK001,,Cash deposit from local collections,Habibganj Branch,REF/IMP/2026/005-CD
+TXN211,2026-02-02,NEFT,50000.00,VS001,RM001,Payment for transport services - Jan Week 1,New Market Branch,REF/TRN/2026/001
+TXN212,2026-02-04,NEFT,50000.00,VS001,RM001,Payment for transport services - Jan Week 2,New Market Branch,REF/TRN/2026/002
+TXN213,2026-02-06,NEFT,50000.00,VS001,RM001,Payment for transport services - Jan Week 3,New Market Branch,REF/TRN/2026/003
+TXN214,2026-02-09,NEFT,50000.00,VS001,RM001,Payment for transport services - Feb Week 1,New Market Branch,REF/TRN/2026/004
+TXN215,2026-02-11,NEFT,50000.00,VS001,RM001,Payment for transport services - Feb Week 2,New Market Branch,REF/TRN/2026/005
+TXN216,2026-02-13,NEFT,50000.00,VS001,RM001,Payment for transport services - Feb Week 3,New Market Branch,REF/TRN/2026/006
+TXN217,2026-02-16,NEFT,50000.00,VS001,RM001,Payment for transport services - Feb Week 4,New Market Branch,REF/TRN/2026/007
+TXN218,2026-02-19,NEFT,50000.00,VS001,RM001,Payment for transport services - Feb Week 5,New Market Branch,REF/TRN/2026/008
+TXN219,2026-02-21,NEFT,50000.00,VS001,RM001,Payment for transport services - Feb Week 6,New Market Branch,REF/TRN/2026/009
+TXN220,2026-02-23,NEFT,50000.00,VS001,RM001,Payment for transport services - Feb Week 7,New Market Branch,REF/TRN/2026/010

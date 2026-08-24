@@ -1,0 +1,37 @@
+SURVEILLANCE REPORT: VEHICLE SIGHTING - NEHRU NAGAR BUS STAND, INDORE
+REPORT NO: SURV/IND/2026/002
+DATE: 17-01-2026
+OFFICER: HC SURESH YADAV
+LOCATION: NEHRU NAGAR BUS STAND, INDORE
+
+OBSERVATIONS:
+Period: 16-01-2026 07:00 to 16-01-2026 19:00
+
+1. At 08:15 hours, observed male on red motorcycle (MH02 EF 9012) parking near bus stand area, appearing to wait.
+2. At 08:25 hours, same individual observed exchanging small packet with auto-rickshaw driver (MH04 AB 5678).
+3. At 08:30 hours, individual departed towards MG Road area.
+4. At 08:45 hours, same red motorcycle returned. Female in blue saree approached and exchanged what appeared to be cash.
+5. At 08:50 hours, individual departed towards Palace Colony area.
+6. Similar pattern observed at:
+   - 12:30 hours (packet exchange with different individual)
+   - 15:45 hours (packet exchange with woman in green salwar kameez)
+   - 17:20 hours (packet exchange with auto-rickshaw driver)
+7. Noted that before each exchange, the motorcycle rider made a brief phone call (approx 20-40 seconds).
+
+VEHICLE IDENTIFIED:
+- Motorcycle MH02 EF 9012: Registered to Vikram Singh, 789 VIP Road, Indore
+
+ADDITIONAL NOTES:
+- The male matches description of Vikram Singh (height ~5'8", slim build, age ~25-30)
+- Exchange patterns suggest distribution network operating from this location
+- Timing consistent with call patterns observed in CDR analysis (calls to +91 87654 32109 prior to exchanges)
+- Auto-rickshaw MH04 AB 5678 frequently seen at this location - appears to be part of distribution network
+
+RECOMMENDATION:
+- Monitor Nehru Nagar Bus Stand area for continued activity
+- Consider stakeout during identified time windows (08:00-09:00, 12:00-13:00, 15:00-16:00, 17:00-18:00)
+- Cross-reference with financial transaction timings
+- Investigate auto-rickshaw MH04 AB 5678 and its driver
+
+PREPARED BY: HC SURESH YADAV
+VERIFIED BY: SI ANITA DESAI

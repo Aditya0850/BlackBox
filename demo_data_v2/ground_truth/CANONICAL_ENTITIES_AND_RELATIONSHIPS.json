@@ -1,0 +1,250 @@
+{
+  "canonical_entities": {
+    "people": {
+      "P001": {"name": "Rajesh Kumar", "aliases": ["Raju"], "phone": "+91 98765 43210", "role": "Drug supplier", "case": 1},
+      "P002": {"name": "Priya Sharma", "aliases": ["Priya"], "phone": "+91 87654 32109", "role": "Money launderer/logistics", "case": 1},
+      "P003": {"name": "Vikram Singh", "aliases": ["Vik"], "phone": "+91 76543 21098", "role": "Courier/driver", "case": 1},
+      "P004": {"name": "Suresh Patel", "aliases": [], "phone": "+91 98765 11111", "role": "Property owner/complainant (legitimate)", "case": 1},
+      "P005": {"name": "Anita Desai", "aliases": [], "phone": "+91 94250 12345", "role": "Investigating officer", "case": 1},
+      "P006": {"name": "Ramesh Kumar", "aliases": [], "phone": "+91 94250 12346", "role": "Surveillance officer", "case": 1},
+      "P007": {"name": "Deepak Mehta", "aliases": [], "phone": "+91 94250 12347", "role": "Financial intelligence officer", "case": 1},
+      "P008": {"name": "Arjun Malik", "aliases": [], "phone": "+91 98765 55555", "role": "Legitimate businessman (red herring - similar name to P001)", "case": 1},
+      "P009": {"name": "Meera Sharma", "aliases": [], "phone": "+91 87654 99999", "role": "School teacher (legitimate, similar name to P002)", "case": 1},
+      "P010": {"name": "Karan Singh", "aliases": [], "phone": "+91 76543 88888", "role": "Taxi driver (legitimate, similar name to P003)", "case": 1},
+      "P011": {"name": "Dr. Pooja Sharma", "aliases": [], "phone": "+91 98765 77777", "role": "Physician (legitimate, similar names)", "case": 1},
+      "P012": {"name": "Sameer Khan", "aliases": [], "phone": "+91 91234 56789", "role": "Money launderer", "case": 2},
+      "P013": {"name": "Neha Gupta", "aliases": [], "phone": "+91 91234 98765", "role": "Hawala operator", "case": 2},
+      "P014": {"name": "Arvind Joshi", "aliases": [], "phone": "+91 91234 11111", "role": "Import/export businessman (Case 2, legitimate front)", "case": 2},
+      "P015": {"name": "Kavita Reddy", "aliases": [], "phone": "+91 91234 22222", "role": "Customs officer (Case 2)", "case": 2},
+      "P016": {"name": "Rohan Mehta", "aliases": [], "phone": "+91 91234 33333", "role": "Truck driver (Case 2)", "case": 2},
+      "P017": {"name": "Amit Patel", "aliases": [], "phone": "+91 91234 44444", "role": "Warehouse manager (Case 2)", "case": 2},
+      "P018": {"name": "Sunita Verma", "aliases": [], "phone": "+91 91234 55555", "role": "Legitimate business owner (Case 2, red herring)", "case": 2},
+      "P019": {"name": "Vijay Singh", "aliases": [], "phone": "+91 91234 66666", "role": "Real estate agent (Case 2, legitimate)", "case": 2},
+      "P020": {"name": "Lekha Nair", "aliases": [], "phone": "+91 91234 77777", "role": "Bank manager (Case 2, legitimate)", "case": 2}
+    },
+    "phones": {
+      "PH001": {"number": "+91 98765 43210", "owner": "P001", "case": 1},
+      "PH002": {"number": "+91 87654 32109", "owner": "P002", "case": 1},
+      "PH003": {"number": "+91 76543 21098", "owner": "P003", "case": 1},
+      "PH004": {"number": "+91 98765 11111", "owner": "P004", "case": 1},
+      "PH005": {"number": "+91 94250 12345", "owner": "P005", "case": 1},
+      "PH006": {"number": "+91 94250 12346", "owner": "P006", "case": 1},
+      "PH007": {"number": "+91 94250 12347", "owner": "P007", "case": 1},
+      "PH008": {"number": "+91 98765 55555", "owner": "P008", "case": 1, "note": "RED HERRING"},
+      "PH009": {"number": "+91 87654 99999", "owner": "P009", "case": 1, "note": "RED HERRING"},
+      "PH010": {"number": "+91 76543 88888", "owner": "P010", "case": 1, "note": "RED HERRING"},
+      "PH011": {"number": "+91 98765 77777", "owner": "P011", "case": 1, "note": "RED HERRING"},
+      "PH012": {"number": "+91 91234 56789", "owner": "P012", "case": 2},
+      "PH013": {"number": "+91 91234 98765", "owner": "P013", "case": 2},
+      "PH014": {"number": "+91 91234 11111", "owner": "P014", "case": 2},
+      "PH015": {"number": "+91 91234 22222", "owner": "P015", "case": 2},
+      "PH016": {"number": "+91 91234 33333", "owner": "P016", "case": 2},
+      "PH017": {"number": "+91 91234 44444", "owner": "P017", "case": 2},
+      "PH018": {"number": "+91 91234 55555", "owner": "P018", "case": 2, "note": "RED HERRING"},
+      "PH019": {"number": "+91 91234 66666", "owner": "P019", "case": 2},
+      "PH020": {"number": "+91 91234 77777", "owner": "P020", "case": 2},
+      "PH021": {"number": "+91 99887 76655", "owner": "P003", "case": 1, "note": "Burner phone"},
+      "PH022": {"number": "+91 91234 88888", "owner": "disposable", "case": 2, "note": "Disposable phone"},
+      "PH023": {"number": "+91 91234 99999", "owner": "disposable", "case": 2, "note": "Disposable phone"}
+    },
+    "vehicles": {
+      "V001": {"plate": "MH02 AB 1234", "type": "Black motorcycle", "owner": "P001", "case": 1},
+      "V002": {"plate": "MP04 CD 5678", "type": "White sedan", "registered_to": "O001", "primary_driver": "P002", "case": 1},
+      "V003": {"plate": "MH02 EF 9012", "type": "Red motorcycle", "owner": "P003", "case": 1},
+      "V004": {"plate": "DL01 XYZ 7890", "type": "Black SUV", "purpose": "Surveillance (unmarked)", "case": 1},
+      "V005": {"plate": "MH04 AB 5678", "type": "Auto-rickshaw", "purpose": "Deliveries", "case": 1},
+      "V006": {"plate": "MH02 CD 9999", "type": "White Maruti", "owner": "P008", "case": 1, "note": "RED HERRING - legitimate"},
+      "V007": {"plate": "MP05 GH 1234", "type": "Blue Honda", "owner": "P009", "case": 1, "note": "RED HERRING - legitimate"},
+      "V008": {"plate": "GJ01 TR 5555", "type": "Silver Innova", "owner": "P012", "case": 2},
+      "V009": {"plate": "KA03 MN 7777", "type": "Black Tempo", "owner": "P016", "case": 2},
+      "V010": {"plate": "TN02 AZ 1111", "type": "Red Truck", "owner": "P014", "case": 2}
+    },
+    "locations": {
+      "L001": {"address": "123 MG Road, Indore", "type": "Residential/complaint", "associated_with": ["P004", "P001"], "case": 1},
+      "L002": {"address": "456 Palace Colony, Bhopal", "type": "Residential", "associated_with": ["P002", "O001"], "case": 1},
+      "L003": {"address": "789 VIP Road, Indore", "type": "Safe house/meeting/drop", "associated_with": ["P001", "P002", "P003"], "case": 1},
+      "L004": {"address": "Nehru Nagar Bus Stand, Indore", "type": "Transportation hub/drop point", "associated_with": ["P003"], "case": 1},
+      "L005": {"address": "Sarafa Bazar, Indore (Jewelry market)", "type": "Money laundering", "associated_with": ["P002"], "case": 1},
+      "L006": {"address": "Malwa Mill Compound, Indore (Abandoned factory)", "type": "Temporary storage", "associated_with": ["P001", "P002"], "case": 1},
+      "L007": {"address": "GT Road Toll Plaza, Indore", "type": "Transit point", "associated_with": ["P003"], "case": 1},
+      "L008": {"address": "JP Nagar, Bhopal (Arvind Joshi's warehouse)", "type": "Storage facility", "associated_with": ["P014", "P012", "P013"], "case": 2},
+      "L009": {"address": "Habibganj Railway Station, Bhopal", "type": "Transit point", "associated_with": ["P012", "P016"], "case": 2},
+      "L010": {"address": "New Market, Bhopal (Commercial area)", "type": "Legitimate business area", "associated_with": ["P016"], "case": 2, "note": "Also used by P012 for distribution"},
+      "L011": {"address": "VIP Road, Bhopal (Sunita Verma's boutique)", "type": "Legitimate business", "associated_with": ["P018"], "case": 2, "note": "RED HERRING"},
+      "L012": {"address": "Lal Ghati Square, Bhopal (Traffic junction)", "type": "Common location", "associated_with": [], "case": 2, "note": "RED HERRING - incidental"},
+      "L013": {"address": "MP Nagar, Bhopal (Business district)", "type": "Legitimate area", "associated_with": [], "case": 2, "note": "RED HERRING - incidental"},
+      "L014": {"address": "Bhopal Railway Station", "type": "Transit hub", "associated_with": [], "case": 2}
+    },
+    "organizations": {
+      "O001": {"name": "Shyam Traders", "address": "456 Palace Colony, Bhopal", "type": "Front company for money laundering", "director": "P002", "case": 1},
+      "O002": {"name": "QuickLogistics Solutions", "type": "Fake courier service", "associated_with": ["P003"], "case": 1},
+      "O003": {"name": "Patel Properties", "address": "123 MG Road, Indore", "type": "Legitimate property business", "owner": "P004", "case": 1},
+      "O004": {"name": "Indore West Police Station", "type": "Law enforcement", "case": 1},
+      "O005": {"name": "Bhopal Cyber Crime Unit", "type": "Law enforcement", "case": 2},
+      "O006": {"name": "Joshi Import Export", "address": "JP Nagar, Bhopal", "type": "Legitimate front", "actual_controller": "P012", "nominal_owner": "P014", "case": 2},
+      "O007": {"name": "Verma Boutiques", "address": "VIP Road, Bhopal", "type": "Legitimate business", "owner": "P018", "case": 2, "note": "RED HERRING"},
+      "O008": {"name": "Nair Enterprises", "type": "Banking sector", "associated_with": ["P020"], "case": 2, "note": "legitimate"}
+    },
+    "bank_accounts": {
+      "A001": {"account_id": "ST001", "type": "Business", "organization": "O001", "case": 1},
+      "A002": {"account_id": "VS001", "type": "Personal", "owner": "P003", "case": 1},
+      "A003": {"account_id": "SK001", "type": "Business", "organization": "O006", "owner": "P012", "case": 2},
+      "A004": {"account_id": "RM001", "type": "Personal", "owner": "P016", "case": 2},
+      "A005": {"account_id": "AJ001", "type": "Business", "organization": "O006", "owner": "P014", "case": 2},
+      "A006": {"account_id": "SV001", "type": "Personal", "owner": "P018", "organization": "O007", "case": 2, "note": "RED HERRING - legitimate"},
+      "A007": {"account_id": "LN001", "type": "Corporate", "organization": "O008", "owner": "P020", "case": 2, "note": "legitimate"}
+    },
+    "events": {
+      "E001": {"description": "Missing person report filed", "date": "2026-01-14", "source": "FIR_001", "case": 1},
+      "E002": {"description": "Surveillance at 789 VIP Road", "date": "2026-01-15", "time": "23:45-00:30", "sources": ["FIR_002", "SURV_001"], "case": 1},
+      "E003": {"description": "Financial transaction pattern identified", "date": "2026-01-10_to_2026-01-20", "source": "SURV_003", "case": 1},
+      "E004": {"description": "Vehicle sighting at bus stand", "date": "2026-01-16", "time": "07:00-19:00", "source": "SURV_002", "case": 1},
+      "E005": {"description": "WhatsApp communication intercepted", "date": "2026-01-15", "time": "22:45", "source": "SOCIAL_001", "case": 1},
+      "E006": {"description": "Facebook post observed", "date": "2026-01-16", "time": "11:20", "source": "SOCIAL_002", "case": 1},
+      "E007": {"description": "Instagram comment noted", "date": "2026-01-17", "time": "19:30", "source": "SOCIAL_003", "case": 1},
+      "E008": {"description": "Case 2: Suspicious shipping activity reported", "date": "2026-02-05", "source": "NEW_FIR", "case": 2},
+      "E009": {"description": "Case 2: Financial intelligence received", "date": "2026-02-10", "source": "NEW_SURV", "case": 2},
+      "E010": {"description": "Case 2: Social media monitoring", "date": "2026-02-12", "source": "NEW_SOCIAL", "case": 2}
+    }
+  },
+  "true_relationships": {
+    "case_1": [
+      {"subject": "P001", "predicate": "owns", "object": "V001", "evidence": ["FIR_001", "SURV_001"]},
+      {"subject": "P002", "predicate": "registered_as_director_of", "object": "O001", "evidence": ["FINANCIAL_RECORDS"]},
+      {"subject": "O001", "predicate": "owns_registered_to", "object": "V002", "evidence": ["VEHICLE_RECORDS"]},
+      {"subject": "P003", "predicate": "owns", "object": "V003", "evidence": ["FIR_002", "SURV_002"]},
+      {"subject": "P003", "predicate": "uses", "object": "PH021", "evidence": ["CDRS", "SOCIAL_MEDIA"]},
+      {"subject": "P001", "predicate": "calls", "object": "P002", "evidence": ["CDRS_WEEK1", "CDRS_WEEK2"], "frequency": "multiple"},
+      {"subject": "P002", "predicate": "calls", "object": "P003", "evidence": ["CDRS_WEEK1", "CDRS_WEEK2"], "frequency": "multiple"},
+      {"subject": "P003", "predicate": "calls", "object": "UNKNOWN", "evidence": ["CDRS_WEEK2"], "note": "via burner to disposable"},
+      {"subject": "P002", "predicate": "transfers_money_to", "object": "P003", "evidence": ["FINANCIAL_TRANSACTIONS_JAN", "FINANCIAL_TRANSACTIONS_FEB"], "method": "NEFT", "accounts": "A001_to_A002"},
+      {"subject": "P003", "predicate": "deposits_cash_in", "object": "A002", "evidence": ["FINANCIAL_TRANSACTIONS_JAN", "FINANCIAL_TRANSACTIONS_FEB"], "note": "from delivery proceeds"},
+      {"subject": "P001", "predicate": "meets_at", "object": "L003", "evidence": ["SURV_001", "FIR_002"]},
+      {"subject": "P002", "predicate": "meets_at", "object": "L003", "evidence": ["SURV_001", "FIR_002"]},
+      {"subject": "P003", "predicate": "visits", "object": "L004", "evidence": ["SURV_002"]},
+      {"subject": "P003", "predicate": "delivers_to", "object": "L004", "evidence": ["SURV_002"]},
+      {"subject": "P001", "predicate": "associated_with", "object": "L001", "evidence": ["FIR_001"]},
+      {"subject": "P002", "predicate": "associated_with", "object": "L002", "evidence": ["FIR_001", "REGISTRATION_RECORDS"]},
+      {"subject": "P003", "predicate": "associated_with", "object": "L003", "evidence": ["SURV_001", "SURV_002"]},
+      {"subject": "O001", "predicate": "located_at", "object": "L002", "evidence": ["REGISTRATION_RECORDS"]},
+      {"subject": "O002", "predicate": "associated_with", "object": "P003", "evidence": ["SOCIAL_MEDIA", "WITNESS_STATEMENTS"]},
+      {"subject": "P005", "predicate": "investigating_officer_for", "object": ["E001", "E002", "E003", "E004"], "evidence": ["FIRS"]},
+      {"subject": "P006", "predicate": "conducted_surveillance_at", "object": "L003", "evidence": ["SURV_001"]},
+      {"subject": "P006", "predicate": "conducted_surveillance_at", "object": "L004", "evidence": ["SURV_002"]},
+      {"subject": "P007", "predicate": "analyzed_financial_transactions_for", "object": ["A001", "A002"], "evidence": ["SURV_003"]},
+      {"subject": "P001", "predicate": "communicated_with", "object": "P002", "evidence": ["SOCIAL_001"], "medium": "WhatsApp"},
+      {"subject": "P002", "predicate": "posted_on_social_media", "object": "O001", "evidence": ["SOCIAL_002"], "platform": "Facebook"},
+      {"subject": "P003", "predicate": "commented_on_social_media", "object": "P002", "evidence": ["SOCIAL_003"], "platform": "Instagram", "note": "Priya di"}
+    ],
+    "case_2": [
+      {"subject": "P012", "predicate": "owns_directs", "object": "O006", "evidence": ["INTELLIGENCE_NOTES", "FINANCIAL_RECORDS"]},
+      {"subject": "P014", "predicate": "owns_directs", "object": "O006", "evidence": ["BUSINESS_REGISTRATIONS"], "note": "Front - actually controlled by P012"},
+      {"subject": "P013", "predicate": "operates_through", "object": "O006", "evidence": ["HAWALA_REPORTS", "FINANCIAL_RECORDS"]},
+      {"subject": "P012", "predicate": "transfers_money_to", "object": "P016", "evidence": ["FINANCIAL_TRANSACTIONS_FEB_CASE2"], "method": "NEFT", "accounts": "A003_to_A004"},
+      {"subject": "P016", "predicate": "transports_goods_for", "object": "P012", "evidence": ["SURVEILLANCE_REPORTS_CASE2"], "vehicle": "V009"},
+      {"subject": "P012", "predicate": "uses_fake_documentation_through", "object": "P014", "evidence": ["INTELLIGENCE_NOTES", "DOCUMENT_ANALYSIS"]},
+      {"subject": "P014", "predicate": "owns", "object": "V010", "evidence": ["VEHICLE_RECORDS_CASE2"]},
+      {"subject": "P016", "predicate": "owns", "object": "V009", "evidence": ["VEHICLE_RECORDS_CASE2"]},
+      {"subject": "P015", "predicate": "monitors", "object": "L008", "evidence": ["CUSTOM_REPORTS_CASE2"]},
+      {"subject": "P012", "predicate": "communicates_with", "object": "P013", "evidence": ["CDRS_CASE2", "SOCIAL_MEDIA_CASE2"], "note": "via disposable phones"},
+      {"subject": "P013", "predicate": "transfers_value_via_hawala", "object": "P012", "evidence": ["FINANCIAL_INTELLIGENCE_CASE2"], "note": "unrecorded transfers"},
+      {"subject": "P012", "predicate": "receives_shipment_at", "object": "L009", "evidence": ["SURVEILLANCE_REPORTS_CASE2"]},
+      {"subject": "P016", "predicate": "delivers_from", "object": "L009", "evidence": ["SURVEILLANCE_REPORTS_CASE2"]},
+      {"subject": "P016", "predicate": "delivers_to", "object": "L010", "evidence": ["SURVEILLANCE_REPORTS_CASE2"]},
+      {"subject": "P014", "predicate": "stores_at", "object": "L008", "evidence": ["SURVEILLANCE_REPORTS_CASE2"]},
+      {"subject": "P012", "predicate": "associated_with", "object": "L008", "evidence": ["SURVEILLANCE_REPORTS_CASE2", "BUSINESS_RECORDS"]},
+      {"subject": "P013", "predicate": "associated_with", "object": "L009", "evidence": ["SURVEILLANCE_REPORTS_CASE2", "TRANSPORT_RECORDS"]},
+      {"subject": "P016", "predicate": "associated_with", "object": "L010", "evidence": ["SURVEILLANCE_REPORTS_CASE2", "DELIVERY_RECORDS"]},
+      {"subject": "P020", "predicate": "monitors_transactions_of", "object": ["A003", "A004", "A005"], "evidence": ["BANK_MONITORING_CASE2"]},
+      {"subject": "P005", "predicate": "consulted_on_case_2_by", "object": "P007", "evidence": ["OFFICER_EXCHANGE_RECORDS"], "note": "Cross-case link"},
+      {"subject": "P007", "predicate": "shared_intelligence_with", "object": "P005", "evidence": ["INTELLIGENCE_SHARING_LOGS"], "note": "Cross-case link"}
+    ]
+  },
+  "cross_case_connections": [
+    {"subject": "P005", "predicate": "investigated", "object": ["E001-E007"], "case": 1},
+    {"subject": "P005", "predicate": "consulted_on", "object": "Case 2 investigation", "evidence": ["OFFICER_EXCHANGE_RECORDS"], "note": "Official consultation"},
+    {"subject": "P007", "predicate": "analyzed_financials", "object": ["A001-A002"], "case": 1},
+    {"subject": "P007", "predicate": "shared_intelligence_on", "object": "Case 2 financial patterns", "evidence": ["INTELLIGENCE_SHARING_LOGS"]},
+    {"subject": ["P001", "P002", "P003"], "predicate": "phone_numbers_appeared_in", "object": "Case 2 surveillance", "evidence": ["SURVEILLANCE_REPORTS_CASE2"], "note": "Flagged as similar patterns"},
+    {"subject": "V001", "predicate": "similar_to", "object": "V006", "evidence": ["VEHICLE_REGISTRATION_COMPARISON"], "note": "Same series MH02, different plates"},
+    {"subject": "O001", "predicate": "similar_name_to", "object": "O006", "evidence": ["BUSINESS_NAME_ANALYSIS"], "note": "Both sound like legitimate trading companies"},
+    {"subject": "L003", "predicate": "similar_pattern_to", "object": "L008", "evidence": ["LOCATION_USAGE_ANALYSIS"], "note": "Both used as storage facilities at specific times"},
+    {"subject": "A001", "predicate": "similar_pattern_to", "object": "A003", "evidence": ["FINANCIAL_PATTERN_ANALYSIS"], "note": "Both show business account patterns with regular transfers"}
+  ],
+  "important_nodes_for_analytics": {
+    "high_degree_centrality": {
+      "entity": "P002",
+      "name": "Priya Sharma",
+      "connections": ["P001", "P003", "O001", "L002", "L003", "A001", "A002", "L005", "L006"],
+      "reason": "Central financial/logistics hub connecting supplier, courier, front company, residences, meeting points, and financial accounts"
+    },
+    "bridge_entity": {
+      "entity": "P003",
+      "name": "Vikram Singh",
+      "connections": ["P002", "L004", "P001", "V003", "PH021", "O002"],
+      "reason": "Bridge between money flow (P002) and physical deliveries (L004), also connects products (P001) to distribution points"
+    },
+    "suspicious_pattern_entity": {
+      "entity": "P012",
+      "name": "Sameer Khan",
+      "connections": ["P013", "P014", "P016", "O006", "L008", "L009", "L010", "V008", "A003", "A004", "A005"],
+      "reason": "High-frequency financial transfers, multiple vehicles, cross-border patterns, hawala operations"
+    },
+    "false_positive_high_connectivity": {
+      "entity": "P014",
+      "name": "Arvind Joshi",
+      "connections": ["P012", "O006", "V010", "L008", "A005"],
+      "reason": "Appears highly connected through legitimate business front but actually clean - used as nominal owner for P012's operations"
+    }
+  },
+  "suspicious_patterns": {
+    "temporal_spike": {
+      "description": "P001-P002 calls increase 200% before financial transfers",
+      "evidence": ["CDRS_WEEK1", "CDRS_WEEK2", "FINANCIAL_TRANSACTIONS"],
+      "details": "Baseline: 2-3 calls/week. Before transfers: 6-8 calls in 2-day period"
+    },
+    "call_transfer_delivery_sequence": {
+      "description": "Sequence: Call P001→P002 → Transfer A001→A002 → Delivery P003 at L004",
+      "evidence": ["CDRS", "FINANCIAL_TRANSACTIONS", "SURVEILLANCE_REPORTS"],
+      "timing": "Typically within 4-6 hour window"
+    },
+    "burner_usage": {
+      "description": "P003 uses PH021 for short calls to unknown numbers before deliveries",
+      "evidence": ["CDRS", "SURVEILLANCE_REPORTS"],
+      "details": "Calls < 60 seconds to disposable numbers, followed by delivery activity within 2 hours"
+    },
+    "cash_deposit_pattern": {
+      "description": "Regular cash deposits (15-22K) within 48hrs of large NEFT receipts (50-75K)",
+      "evidence": ["FINANCIAL_TRANSACTIONS_JAN", "FINANCIAL_TRANSACTIONS_FEB"],
+      "details": "Pattern repeats: NEFT 50k→cash 15k, NEFT 75k→cash 20k, NEFT 60k→cash 18k"
+    },
+    "location_reuse": {
+      "description": "L003 used repeatedly at specific times (23:50-00:30) for exchanges",
+      "evidence": ["SURV_001", "FIR_002", "CDRS"],
+      "details": "Consistent time window suggests coordinated activity"
+    },
+    "vehicle_pattern": {
+      "description": "V003 appears at L004 shortly after calls from P002 to P003",
+      "evidence": ["CDRS", "SURV_002", "VEHICLE_RECORDS"],
+      "details": "Within 90 minutes of P002→P003 call, V003 observed at L004"
+    },
+    "social_media_correlation": {
+      "description": "P002 posts business updates same day as large transfers",
+      "evidence": ["FINANCIAL_TRANSACTIONS", "SOCIAL_MEDIA"],
+      "details": "Large NEFT transfers correlated with Facebook business posts within 24 hours"
+    }
+  },
+  "ground_truth_validation_notes": {
+    "validation_method": "Cross-reference extracted entities and relationships with this JSON",
+    "accuracy_metrics": [
+      "Entity extraction precision/recall by type (people, phones, vehicles, etc.)",
+      "Relationship extraction precision/recall by predicate type",
+      "Entity resolution accuracy (merging aliases correctly)",
+      "Temporal pattern detection accuracy",
+      "Suspicious pattern detection accuracy",
+      "Cross-case connection detection"
+    ],
+    "red_herring_handling": "System should correctly identify and not over-weight red herring entities",
+    "false_positive_mitigation": "System should not flag legitimate high-connectivity entities as suspicious without corroborating evidence"
+  }
+}

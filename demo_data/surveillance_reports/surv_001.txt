@@ -1,0 +1,37 @@
+SURVEILLANCE REPORT: LOCATION MONITORING
+REPORT NO: SURV/IND/2026/001
+DATE: 16-01-2026
+OFFICER: HC RAMESH KUMAR
+LOCATION: 789 VIP ROAD, INDORE (SUSPECTED SAFE HOUSE)
+
+OBSERVATIONS:
+Period: 15-01-2026 18:00 to 16-01-2026 06:00
+
+1. At 23:50 hours on 15-01-2026, observed exchange between male on black motorcycle (MH02 AB 1234) and female in white sedan (MP04 CD 5678) - packet exchange noted.
+2. At 00:20 hours on 16-01-2026, observed male on red motorcycle (MH02 EF 9012) collecting packet left near boundary wall.
+3. Frequent visitors noted between 22:00-04:00 hours:
+   - Black motorcycle MH02 AB 1234 (3 times)
+   - White sedan MP04 CD 5678 (2 times) 
+   - Red motorcycle MH02 EF 9012 (4 times)
+   - Unidentified auto-rickshaw (2 times)
+4. No activity observed between 06:00-18:00 hours.
+5. Electricity meter reading shows consistent low usage (suggesting intermittent occupation).
+
+VEHICLE REGISTRATION CHECK:
+- MH02 AB 1234: Registered to Rajesh Kumar, 123 MG Road, Indore
+- MP04 CD 5678: Registered to Shyam Traders, 456 Palace Colony, Bhopal (Director: Priya Sharma)
+- MH02 EF 9012: Registered to Vikram Singh, 789 VIP Road, Indore (same address under surveillance)
+
+INFERENCE:
+Location 789 VIP Road, Indore is being used as a meeting point and temporary storage facility for illicit substances. The pattern suggests:
+- Rajesh Kumar supplies substances
+- Priya Sharma coordinates payment/logistics  
+- Vikram Singh handles last-mile delivery
+
+RECOMMENDATION:
+- Continue technical surveillance on associated phone numbers
+- Consider physical surveillance during exchange windows
+- Monitor financial transactions of Shyam Traders account
+
+PREPARED BY: HC RAMESH KUMAR
+VERIFIED BY: SI ANITA DESAI

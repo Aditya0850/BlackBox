@@ -1,0 +1,32 @@
+SURVEILLANCE REPORT: VEHICLE SIGHTING
+REPORT NO: SURV/IND/2026/002
+DATE: 17-01-2026
+OFFICER: HC SURESH YADAV
+LOCATION: NEHRU NAGAR BUS STAND, INDORE
+
+OBSERVATIONS:
+Period: 16-01-2026 07:00 to 16-01-2026 19:00
+
+1. At 08:15 hours, observed male on red motorcycle (MH02 EF 9012) parking near bus stand area, appearing to wait.
+2. At 08:45 hours, same individual observed handing over a small packet to an auto-rickshaw driver (vehicle not noted).
+3. At 09:00 hours, individual departed towards MG Road area.
+4. Similar pattern observed at:
+   - 12:30 hours (packet exchange with different individual)
+   - 15:45 hours (packet exchange with woman in blue saree)
+   - 17:20 hours (packet exchange with auto-rickshaw driver)
+
+VEHICLE IDENTIFIED:
+- Motorcycle MH02 EF 9012: Registered to Vikram Singh, 789 VIP Road, Indore
+
+ADDITIONAL NOTES:
+- The male matches description of Vikram Singh (height ~5'8", slim build, age ~25-30)
+- Exchange patterns suggest distribution network operating from this location
+- Timing consistent with call patterns observed in CDR analysis (calls to +91 87654 32109 prior to exchanges)
+
+RECOMMENDATION:
+- Monitor Nehru Nagar Bus Stand area for continued activity
+- Consider stakeout during identified time windows
+- Cross-reference with financial transaction timings
+
+PREPARED BY: HC SURESH YADAV
+VERIFIED BY: SI ANITA DESAI

@@ -1,0 +1,41 @@
+SURVEILLANCE REPORT: FINANCIAL MONITORING
+REPORT NO: SURV/IND/2026/003
+DATE: 18-01-2026
+OFFICER: ASI DEEPAK MEHTA
+LOCATION: BHOPAL BRANCH, STATE BANK (Shyam Traders account)
+
+OBSERVATIONS:
+Period: 10-01-2026 to 18-01-2026
+
+Account: ST001 (Shyam Traders, 456 Palace Colony, Bhopal)
+Signatory: Priya Sharma (Director)
+
+Unusual activity noted:
+1. Repeated NEFT transfers to account VS001 (Vikram Singh) on:
+   - 10-01-2026: ₹50,000
+   - 15-01-2026: ₹75,000
+   - 20-01-2026: ₹60,000
+   - 01-02-2026: ₹55,000
+   - 05-02-2026: ₹70,000
+   - 10-02-2026: ₹65,000
+   (Description: "Payment for consignment delivery")
+
+2. Cash deposits in same account shortly after NEFT receipts:
+   - 12-01-2026: ₹15,000 (within 48hrs of 50k NEFT)
+   - 18-01-2026: ₹20,000 (within 48hrs of 75k NEFT)
+   - 22-01-2026: ₹18,000 (within 48hrs of 60k NEFT)
+   - 03-02-2026: ₹16,000 (within 48hrs of 55k NEFT)
+   - 08-02-2026: ₹22,000 (within 48hrs of 70k NEFT)
+   - 12-02-2026: ₹19,000 (within 48hrs of 65k NEFT)
+
+Pattern suggests: Money received via NEFT is partially withdrawn as cash, possibly to pay lower-level operatives or for layering.
+
+Additional note: Account VS001 (Vikram Singh) shows corresponding cash deposits and withdrawals consistent with delivery-based income.
+
+RECOMMENDATION:
+- Issue Suspicious Transaction Report (STR) to FIU
+- Monitor account VS001 for structuring patterns
+- Consider linking to narcotics case based on timing with call patterns
+
+PREPARED BY: ASI DEEPAK MEHTA
+VERIFIED BY: SI ANITA DESAI

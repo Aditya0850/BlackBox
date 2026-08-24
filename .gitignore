@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.pyc
+*$py.class
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.*
+
+# Claude settings
+.claude/settings.local.json
+
+# Node.js
+node_modules/
+frontend/node_modules/
+
+# Vite
+.vite/
+frontend/node_modules/.vite/
+
+# Backup files
+*.backup
+*.bak*
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated datasets (large) - ignore specific subdirectories
+demo_data/full_dataset/
+demo_data/world_model/
+demo_data/benchmarks/
+demo_data/demo_subset/
+demo_data_v2/full_dataset/
+demo_data_v2/world_model/
+demo_data_v2/benchmarks/
+demo_data_v2/demo_subset/
+
+# Generated datasets under generation_scripts
+demo_data/generation_scripts/demo_data/full_dataset/
+demo_data/generation_scripts/demo_data/world_model/
+demo_data/generation_scripts/demo_data/benchmarks/
+demo_data/generation_scripts/demo_data/demo_subset/
+demo_data/generation_scripts/demo_data_v2/full_dataset/
+demo_data/generation_scripts/demo_data_v2/world_model/
+demo_data/generation_scripts/demo_data_v2/benchmarks/
+demo_data/generation_scripts/demo_data_v2/demo_subset/
+
+# Specific __init__.py files to ignore (empty, not required)
+backend/src/__init__.py
+backend/tests/__init__.py
+backend/tests/integration/__init__.py
