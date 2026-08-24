@@ -1,4 +1,5 @@
 """Evidence API endpoints."""
+from __future__ import annotations
 from typing import Optional
 from uuid import UUID
 
@@ -6,10 +7,10 @@ from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, Upload
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from ....infrastructure.db.database import get_async_session_factory
-from ....infrastructure.db.repositories import EvidenceRepository, CaseRepository
-from ....infrastructure.storage import get_minio_client
-from ....domain.value_objects import MimeType
+from ...infrastructure.db.database import get_async_session_factory
+from ...infrastructure.db.repositories import EvidenceRepository, CaseRepository
+from ...infrastructure.storage import get_minio_client
+from ...domain.value_objects import MimeType
 
 router = APIRouter()
 
@@ -318,6 +319,7 @@ async def link_evidence_to_case(
 @router.delete(
     "/{evidence_id}/link/{case_id}",
     status_code=status.HTTP_204_NO_CONTENT,
+    response_model=None,
     summary="Unlink evidence from a case",
 )
 async def unlink_evidence_from_case(
@@ -388,6 +390,7 @@ async def get_evidence_download_url(
 @router.delete(
     "/{evidence_id}",
     status_code=status.HTTP_204_NO_CONTENT,
+    response_model=None,
     summary="Delete evidence",
 )
 async def delete_evidence(

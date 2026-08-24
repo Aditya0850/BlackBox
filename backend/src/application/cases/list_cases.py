@@ -3,10 +3,10 @@ from dataclasses import dataclass
 from typing import Optional
 from uuid import UUID
 
-from ....domain.entities import Case
-from ....domain.value_objects import CaseId
-from ....infrastructure.db.repositories import CaseRepository
-from ....infrastructure.db.database import get_async_session_factory
+from src.domain.entities import Case
+from src.domain.value_objects import CaseId, CaseNumber, CaseStatus, UserId
+from src.infrastructure.db.repositories import CaseRepository
+from src.infrastructure.db.database import get_async_session_factory
 
 
 @dataclass
@@ -58,11 +58,11 @@ class ListCasesUseCase:
 
     def _model_to_entity(self, model) -> Case:
         """Convert persistence model to domain entity."""
-        from ....domain.value_objects import CaseStatus, UserId
-
         case = Case(
             id=CaseId(model.id),
             title=model.title,
+            case_number=CaseNumber.parse(model.case_number),
+            description=model.description,
             status=CaseStatus(model.status),
             created_by=UserId(model.created_by),
             created_at=model.created_at,

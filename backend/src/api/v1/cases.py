@@ -1,14 +1,16 @@
 """Cases API endpoints."""
+from __future__ import annotations
 from typing import Optional
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
+import re
 
-from ....infrastructure.db.database import get_async_session_factory
-from ....infrastructure.db.repositories import CaseRepository
-from ....domain.value_objects import CaseStatus
+from src.infrastructure.db.database import get_async_session_factory
+from src.infrastructure.db.repositories import CaseRepository
+from src.domain.value_objects import CaseStatus
 
 router = APIRouter()
 
@@ -23,18 +25,21 @@ async def get_db() -> AsyncSession:
 # Pydantic schemas
 class CaseCreate(BaseModel):
     title: str = Field(..., min_length=1, max_length=255)
+    description: Optional[str] = Field(None, max_length=10000)
     tags: list[str] = Field(default_factory=list)
 
 
 class CaseUpdate(BaseModel):
     title: Optional[str] = Field(None, min_length=1, max_length=255)
-    status: Optional[CaseStatus] = None
+    description: Optional[str] = Field(None, max_length=10000)
     tags: Optional[list[str]] = None
 
 
 class CaseResponse(BaseModel):
     id: UUID
+    case_number: str
     title: str
+    description: str
     status: str
     created_by: UUID
     created_at: str
@@ -54,6 +59,42 @@ class CaseListResponse(BaseModel):
     limit: int
 
 
+# Validation helpers
+
+CASE_NUMBER_PATTERN = re.compile(r"^CASE-\d{4}-\d{5}$")
+
+def validate_case_number(case_number: str) -> str:
+    """Validate case number format."""
+    if not CASE_NUMBER_PATTERN.match(case_number):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail={
+                "error": {
+                    "code": "INVALID_CASE_NUMBER",
+                    "message": "Invalid case number format. Expected format: CASE-YYYY-NNNNN",
+                }
+            },
+        )
+    return case_number
+
+
+def validate_tags(tags: list[str]) -> list[str]:
+    """Validate tags."""
+    if len(tags) > 20:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail={"error": {"code": "TOO_MANY_TAGS", "message": "Maximum 20 tags allowed"}},
+        )
+    for tag in tags:
+        if not tag or len(tag) > 50:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail={"error": {"code": "INVALID_TAG", "message": "Tags must be 1-50 characters"}},
+            )
+    # Lowercase and deduplicate
+    return list(dict.fromkeys(tag.lower() for tag in tags))
+
+
 # Endpoints
 @router.post(
     "",
@@ -67,37 +108,38 @@ async def create_case(
     # TODO: Add auth dependency to get current user
     created_by: UUID = UUID("00000000-0000-0000-0000-000000000001"),  # Placeholder
 ) -> CaseResponse:
-    """Create a new investigation case."""
-    from ....domain.entities import Case
-    from ....domain.value_objects import UserId, CaseStatus as DomainCaseStatus
+    """Create a new investigation case.
+
+    Returns the case with auto-generated case_number (format: CASE-YYYY-NNNNN).
+    """
+    from src.domain.entities import Case
+    from src.domain.value_objects import UserId
+    from src.application.cases import CreateCaseUseCase, CreateCaseCommand
+
+    # Validate tags
+    validated_tags = validate_tags(case_data.tags)
 
     repo = CaseRepository()
+    use_case = CreateCaseUseCase(repo)
 
-    case = Case.create(
+    command = CreateCaseCommand(
         title=case_data.title,
-        created_by=UserId(created_by),
-        tags=case_data.tags,
+        created_by=created_by,
+        tags=validated_tags,
+        description=case_data.description or "",
     )
 
-    # Convert to model
-    from ....infrastructure.db.models import CaseModel
-    case_model = CaseModel(
-        id=case.id.value,
-        title=case.title,
-        status=case.status.value,
-        created_by=case.created_by.value,
-        created_at=case.created_at,
-        tags=case.tags,
-    )
+    result = await use_case.execute(command)
 
-    created_case = await repo.create(session, case_model)
-    await session.commit()
+    created_case = result.case
 
     return CaseResponse(
-        id=created_case.id,
+        id=created_case.id.value,
+        case_number=created_case.case_number.value,
         title=created_case.title,
-        status=created_case.status,
-        created_by=created_case.created_by,
+        description=created_case.description,
+        status=created_case.status.value,
+        created_by=created_case.created_by.value,
         created_at=created_case.created_at.isoformat(),
         updated_at=created_case.updated_at.isoformat() if created_case.updated_at else None,
         closed_at=created_case.closed_at.isoformat() if created_case.closed_at else None,
@@ -119,36 +161,41 @@ async def list_cases(
     tag: Optional[str] = Query(None, description="Filter by tag"),
 ) -> CaseListResponse:
     """List cases with optional filters."""
-    repo = CaseRepository()
+    from src.domain.entities import Case
+    from src.application.cases import ListCasesUseCase, ListCasesQuery
 
-    cases = await repo.list(
-        session,
+    repo = CaseRepository()
+    use_case = ListCasesUseCase(repo)
+
+    query = ListCasesQuery(
         offset=offset,
         limit=limit,
         status=status,
         tag=tag,
     )
 
-    total = await repo.count(session, status=status)
+    result = await use_case.execute(query)
 
     return CaseListResponse(
         cases=[
             CaseResponse(
-                id=c.id,
+                id=c.id.value,
+                case_number=c.case_number.value,
                 title=c.title,
-                status=c.status,
-                created_by=c.created_by,
+                description=c.description,
+                status=c.status.value,
+                created_by=c.created_by.value,
                 created_at=c.created_at.isoformat(),
                 updated_at=c.updated_at.isoformat() if c.updated_at else None,
                 closed_at=c.closed_at.isoformat() if c.closed_at else None,
                 archived_at=c.archived_at.isoformat() if c.archived_at else None,
                 tags=c.tags,
             )
-            for c in cases
+            for c in result.cases
         ],
-        total=total,
-        offset=offset,
-        limit=limit,
+        total=result.total,
+        offset=result.offset,
+        limit=result.limit,
     )
 
 
@@ -162,20 +209,71 @@ async def get_case(
     session: AsyncSession = Depends(get_db),
 ) -> CaseResponse:
     """Get a case by its ID."""
-    repo = CaseRepository()
+    from src.domain.entities import Case
+    from src.application.cases import GetCaseUseCase, GetCaseQuery
 
-    case = await repo.get(session, case_id)
-    if not case:
+    use_case = GetCaseUseCase()
+
+    query = GetCaseQuery(case_id=case_id)
+    result = await use_case.execute(query)
+
+    if not result.case:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail={"error": {"code": "NOT_FOUND", "message": "Case not found"}},
         )
 
+    case = result.case
     return CaseResponse(
-        id=case.id,
+        id=case.id.value,
+        case_number=case.case_number.value,
         title=case.title,
-        status=case.status,
-        created_by=case.created_by,
+        description=case.description,
+        status=case.status.value,
+        created_by=case.created_by.value,
+        created_at=case.created_at.isoformat(),
+        updated_at=case.updated_at.isoformat() if case.updated_at else None,
+        closed_at=case.closed_at.isoformat() if case.closed_at else None,
+        archived_at=case.archived_at.isoformat() if case.archived_at else None,
+        tags=case.tags,
+    )
+
+
+@router.get(
+    "/number/{case_number}",
+    response_model=CaseResponse,
+    summary="Get a case by case number",
+)
+async def get_case_by_number(
+    case_number: str,
+    session: AsyncSession = Depends(get_db),
+) -> CaseResponse:
+    """Get a case by its case number (format: CASE-YYYY-NNNNN)."""
+    from src.domain.entities import Case
+    from src.application.cases import GetCaseUseCase, GetCaseByNumberQuery
+
+    # Validate format
+    validate_case_number(case_number)
+
+    use_case = GetCaseUseCase()
+
+    query = GetCaseByNumberQuery(case_number=case_number)
+    result = await use_case.execute_by_number(query)
+
+    if not result.case:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={"error": {"code": "NOT_FOUND", "message": "Case not found"}},
+        )
+
+    case = result.case
+    return CaseResponse(
+        id=case.id.value,
+        case_number=case.case_number.value,
+        title=case.title,
+        description=case.description,
+        status=case.status.value,
+        created_by=case.created_by.value,
         created_at=case.created_at.isoformat(),
         updated_at=case.updated_at.isoformat() if case.updated_at else None,
         closed_at=case.closed_at.isoformat() if case.closed_at else None,
@@ -196,71 +294,50 @@ async def update_case(
     # TODO: Add auth dependency
     updated_by: UUID = UUID("00000000-0000-0000-0000-000000000001"),  # Placeholder
 ) -> CaseResponse:
-    """Update a case. Requires reason for audit logging."""
-    from ....domain.value_objects import UserId
+    """Update a case. Only title, description, and tags can be updated.
+
+    Status transitions are not available in this slice (will be added in Slice 2.3).
+    """
+    from src.domain.entities import Case
+    from src.application.cases import UpdateCaseUseCase, UpdateCaseCommand
+
+    # Validate tags if provided
+    validated_tags = None
+    if case_update.tags is not None:
+        validated_tags = validate_tags(case_update.tags)
 
     repo = CaseRepository()
+    use_case = UpdateCaseUseCase(repo)
 
-    case = await repo.get(session, case_id)
-    if not case:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail={"error": {"code": "NOT_FOUND", "message": "Case not found"}},
-        )
+    command = UpdateCaseCommand(
+        case_id=case_id,
+        title=case_update.title,
+        description=case_update.description,
+        tags=validated_tags,
+        updated_by=updated_by,
+    )
 
-    # Apply updates
-    from datetime import datetime
-    if case_update.title is not None:
-        case.title = case_update.title
-    if case_update.status is not None:
-        if case_update.status == CaseStatus.CLOSED and case.status != CaseStatus.CLOSED:
-            case.status = CaseStatus.CLOSED.value
-            case.closed_at = datetime.utcnow()
-        elif case_update.status == CaseStatus.ARCHIVED and case.status == CaseStatus.CLOSED:
-            case.status = CaseStatus.ARCHIVED.value
-            case.archived_at = datetime.utcnow()
-        elif case_update.status == CaseStatus.OPEN:
-            case.status = CaseStatus.OPEN.value
-            case.closed_at = None
-            case.archived_at = None
-    if case_update.tags is not None:
-        case.tags = case_update.tags
+    try:
+        result = await use_case.execute(command)
+    except ValueError as e:
+        if "not found" in str(e).lower():
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail={"error": {"code": "NOT_FOUND", "message": str(e)}},
+            )
+        raise
 
-    case.updated_at = datetime.utcnow()
-
-    updated_case = await repo.update(session, case)
-    await session.commit()
-
+    updated_case = result.case
     return CaseResponse(
-        id=updated_case.id,
+        id=updated_case.id.value,
+        case_number=updated_case.case_number.value,
         title=updated_case.title,
-        status=updated_case.status,
-        created_by=updated_case.created_by,
+        description=updated_case.description,
+        status=updated_case.status.value,
+        created_by=updated_case.created_by.value,
         created_at=updated_case.created_at.isoformat(),
         updated_at=updated_case.updated_at.isoformat() if updated_case.updated_at else None,
         closed_at=updated_case.closed_at.isoformat() if updated_case.closed_at else None,
         archived_at=updated_case.archived_at.isoformat() if updated_case.archived_at else None,
         tags=updated_case.tags,
     )
-
-
-@router.delete(
-    "/{case_id}",
-    status_code=status.HTTP_204_NO_CONTENT,
-    summary="Delete a case",
-)
-async def delete_case(
-    case_id: UUID,
-    session: AsyncSession = Depends(get_db),
-) -> None:
-    """Delete a case."""
-    repo = CaseRepository()
-
-    deleted = await repo.delete(session, case_id)
-    if not deleted:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail={"error": {"code": "NOT_FOUND", "message": "Case not found"}},
-        )
-
-    await session.commit()

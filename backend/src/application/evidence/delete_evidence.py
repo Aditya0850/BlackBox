@@ -2,10 +2,10 @@
 from dataclasses import dataclass
 from uuid import UUID
 
-from ....domain.events import EvidenceDeleted
-from ....infrastructure.db.repositories import EvidenceRepository
-from ....infrastructure.db.database import get_async_session_factory
-from ....infrastructure.storage import get_minio_client
+from src.domain.events import EvidenceDeleted
+from src.infrastructure.db.repositories import EvidenceRepository
+from src.infrastructure.db.database import get_async_session_factory
+from src.infrastructure.storage import get_minio_client
 
 
 @dataclass

@@ -1,4 +1,5 @@
 """Case repository implementation."""
+from __future__ import annotations
 from typing import Sequence, Optional
 from uuid import UUID
 
@@ -65,6 +66,12 @@ class CaseRepository(BaseRepository[CaseModel]):
     async def get_by_title(self, session: AsyncSession, title: str) -> Optional[CaseModel]:
         """Get case by exact title match."""
         stmt = select(CaseModel).where(CaseModel.title == title)
+        result = await session.execute(stmt)
+        return result.scalar_one_or_none()
+
+    async def get_by_case_number(self, session: AsyncSession, case_number: str) -> Optional[CaseModel]:
+        """Get case by case_number."""
+        stmt = select(CaseModel).where(CaseModel.case_number == case_number)
         result = await session.execute(stmt)
         return result.scalar_one_or_none()
 

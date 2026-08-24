@@ -2,9 +2,9 @@
 from dataclasses import dataclass
 from uuid import UUID
 
-from ....domain.events import EvidenceUnlinkedFromCase
-from ....infrastructure.db.repositories import EvidenceRepository
-from ....infrastructure.db.database import get_async_session_factory
+from src.domain.events import EvidenceUnlinkedFromCase
+from src.infrastructure.db.repositories import EvidenceRepository
+from src.infrastructure.db.database import get_async_session_factory
 
 
 @dataclass
@@ -29,7 +29,7 @@ class UnlinkEvidenceFromCaseUseCase:
 
     async def execute(self, command: UnlinkEvidenceCommand) -> UnlinkEvidenceResult:
         """Execute the unlink evidence from case use case."""
-        from ....infrastructure.db.models import CaseEvidenceModel
+        from src.infrastructure.db.models import CaseEvidenceModel
         from sqlalchemy import delete
 
         async_session_factory = get_async_session_factory()

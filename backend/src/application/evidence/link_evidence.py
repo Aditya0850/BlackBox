@@ -3,9 +3,9 @@ from dataclasses import dataclass
 from uuid import UUID
 from datetime import datetime
 
-from ....domain.events import EvidenceLinkedToCase
-from ....infrastructure.db.repositories import EvidenceRepository, CaseRepository
-from ....infrastructure.db.database import get_async_session_factory
+from src.domain.events import EvidenceLinkedToCase
+from src.infrastructure.db.repositories import EvidenceRepository, CaseRepository
+from src.infrastructure.db.database import get_async_session_factory
 
 
 @dataclass
@@ -51,7 +51,7 @@ class LinkEvidenceToCaseUseCase:
                 raise ValueError("Evidence already linked to this case")
 
             # Create link
-            from ....infrastructure.db.models import CaseEvidenceModel
+            from src.infrastructure.db.models import CaseEvidenceModel
             link = CaseEvidenceModel(
                 case_id=command.case_id,
                 evidence_id=command.evidence_id,

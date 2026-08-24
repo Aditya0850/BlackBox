@@ -72,6 +72,7 @@ services:
     volumes:
       - ./backend/src:/app/src:ro
       - ./backend/alembic:/app/alembic:ro
+      - ./backend/tests:/app/tests:ro
 
   frontend:
     build:

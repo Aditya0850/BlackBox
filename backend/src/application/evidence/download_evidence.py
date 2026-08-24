@@ -3,11 +3,11 @@ from dataclasses import dataclass
 from typing import Optional
 from uuid import UUID
 
-from ....domain.entities import Evidence
-from ....domain.value_objects import EvidenceId
-from ....infrastructure.db.repositories import EvidenceRepository
-from ....infrastructure.db.database import get_async_session_factory
-from ....infrastructure.storage import get_minio_client
+from src.domain.entities import Evidence
+from src.domain.value_objects import EvidenceId
+from src.infrastructure.db.repositories import EvidenceRepository
+from src.infrastructure.db.database import get_async_session_factory
+from src.infrastructure.storage import get_minio_client
 
 
 @dataclass

@@ -26,11 +26,14 @@ class CaseModel(Base):
     __table_args__ = (
         Index("idx_cases_status", "status"),
         Index("idx_cases_tags", "tags", postgresql_using="gin"),
+        Index("idx_cases_case_number", "case_number", unique=True),
         {"schema": "intel"},
     )
 
     id: Mapped[UUID] = mapped_column(PGUUID(as_uuid=True), primary_key=True, default=uuid4)
     title: Mapped[str] = mapped_column(Text, nullable=False)
+    case_number: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
+    description: Mapped[str] = mapped_column(Text, nullable=False, default="")
     status: Mapped[str] = mapped_column(String(20), nullable=False)  # open, closed, archived
     created_by: Mapped[UUID] = mapped_column(PGUUID(as_uuid=True), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
@@ -102,6 +105,11 @@ class AnalysisSnapshotModel(Base):
     )
 
     id: Mapped[UUID] = mapped_column(PGUUID(as_uuid=True), primary_key=True, default=uuid4)
+    case_id: Mapped[UUID] = mapped_column(
+        PGUUID(as_uuid=True),
+        ForeignKey("intel.cases.id", ondelete="CASCADE"),
+        nullable=False,
+    )
     evidence_id: Mapped[UUID] = mapped_column(
         PGUUID(as_uuid=True),
         ForeignKey("intel.evidence.id", ondelete="CASCADE"),
@@ -117,6 +125,7 @@ class AnalysisSnapshotModel(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
 
     # Relationships
+    case: Mapped["CaseModel"] = relationship(back_populates="snapshots")
     evidence: Mapped["EvidenceModel"] = relationship(back_populates="snapshots")
     findings: Mapped[list["FindingModel"]] = relationship(back_populates="snapshot", cascade="all, delete-orphan")
 

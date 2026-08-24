@@ -3,10 +3,10 @@ from dataclasses import dataclass
 from uuid import UUID
 from datetime import datetime
 
-from ....domain.entities import Case
-from ....domain.value_objects import CaseId, UserId, CaseStatus
-from ....infrastructure.db.repositories import CaseRepository
-from ....infrastructure.db.database import get_async_session_factory
+from src.domain.entities import Case
+from src.domain.value_objects import CaseId, UserId, CaseStatus
+from src.infrastructure.db.repositories import CaseRepository
+from src.infrastructure.db.database import get_async_session_factory
 
 
 @dataclass
@@ -58,6 +58,8 @@ class CloseCaseUseCase:
         case = Case(
             id=CaseId(model.id),
             title=model.title,
+            case_number=CaseNumber.parse(model.case_number),
+            description=model.description,
             status=CaseStatus(model.status),
             created_by=UserId(model.created_by),
             created_at=model.created_at,

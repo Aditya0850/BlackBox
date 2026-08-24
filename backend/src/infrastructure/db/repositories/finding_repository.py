@@ -1,4 +1,5 @@
 """Finding repository implementation."""
+from __future__ import annotations
 from typing import Sequence, Optional
 from uuid import UUID
 

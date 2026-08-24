@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Optional
 from uuid import UUID
 
-from ..value_objects import CaseId, CaseStatus, UserId
+from ..value_objects import CaseId, CaseNumber, CaseStatus, UserId
 
 
 @dataclass
@@ -15,13 +15,15 @@ class Case:
     status: CaseStatus
     created_by: UserId
     created_at: datetime
+    case_number: CaseNumber
+    description: str = ""
     tags: list[str] = field(default_factory=list)
     updated_at: Optional[datetime] = None
     closed_at: Optional[datetime] = None
     archived_at: Optional[datetime] = None
 
     @classmethod
-    def create(cls, title: str, created_by: UserId, tags: list[str] = None) -> "Case":
+    def create(cls, title: str, created_by: UserId, tags: list[str] = None, case_number: CaseNumber = None, description: str = "") -> "Case":
         """Create a new case."""
         return cls(
             id=CaseId.generate(),
@@ -29,6 +31,8 @@ class Case:
             status=CaseStatus.OPEN,
             created_by=created_by,
             created_at=datetime.utcnow(),
+            case_number=case_number,
+            description=description or "",
             tags=tags or [],
         )
 

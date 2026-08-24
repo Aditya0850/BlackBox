@@ -4,11 +4,11 @@ from typing import Optional
 from uuid import UUID
 from datetime import datetime
 
-from ....domain.entities import Case
-from ....domain.value_objects import CaseId, UserId, CaseStatus
-from ....domain.events import CaseTagAdded, CaseTagRemoved
-from ....infrastructure.db.repositories import CaseRepository
-from ....infrastructure.db.database import get_async_session_factory
+from src.domain.entities import Case
+from src.domain.value_objects import CaseId, CaseNumber, UserId, CaseStatus
+from src.domain.events import CaseTagAdded, CaseTagRemoved
+from src.infrastructure.db.repositories import CaseRepository
+from src.infrastructure.db.database import get_async_session_factory
 
 
 @dataclass
@@ -16,7 +16,7 @@ class UpdateCaseCommand:
     """Command to update a case."""
     case_id: UUID
     title: Optional[str] = None
-    status: Optional[CaseStatus] = None
+    description: Optional[str] = None
     tags: Optional[list[str]] = None
     updated_by: UUID = None
 
@@ -29,7 +29,7 @@ class UpdateCaseResult:
 
 
 class UpdateCaseUseCase:
-    """Use case for updating a case."""
+    """Use case for updating a case. Only title, description, and tags can be updated in this slice."""
 
     def __init__(self, case_repo: CaseRepository = None):
         self.case_repo = case_repo or CaseRepository()
@@ -44,24 +44,12 @@ class UpdateCaseUseCase:
 
             events = []
 
-            # Update fields
+            # Update fields - only title, description, tags allowed in this slice
             if command.title is not None:
                 case_model.title = command.title
 
-            if command.status is not None:
-                old_status = case_model.status
-                new_status = command.status.value
-
-                if new_status == CaseStatus.CLOSED.value and old_status != CaseStatus.CLOSED.value:
-                    case_model.status = new_status
-                    case_model.closed_at = datetime.utcnow()
-                elif new_status == CaseStatus.ARCHIVED.value and old_status == CaseStatus.CLOSED.value:
-                    case_model.status = new_status
-                    case_model.archived_at = datetime.utcnow()
-                elif new_status == CaseStatus.OPEN.value:
-                    case_model.status = new_status
-                    case_model.closed_at = None
-                    case_model.archived_at = None
+            if command.description is not None:
+                case_model.description = command.description
 
             if command.tags is not None:
                 # Track added/removed tags
@@ -95,9 +83,13 @@ class UpdateCaseUseCase:
 
     def _model_to_entity(self, model) -> Case:
         """Convert persistence model to domain entity."""
+        from src.domain.value_objects import CaseStatus, UserId
+
         case = Case(
             id=CaseId(model.id),
             title=model.title,
+            case_number=CaseNumber.parse(model.case_number),
+            description=model.description,
             status=CaseStatus(model.status),
             created_by=UserId(model.created_by),
             created_at=model.created_at,

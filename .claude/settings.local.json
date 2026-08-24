@@ -13,7 +13,18 @@
       "Bash(python -m pytest src/tests/unit/test_value_objects.py -v)",
       "Bash(python -m pytest src/tests/unit/test_entities.py -v)",
       "Bash(python -m pytest src/tests/unit/test_pipeline_contracts.py -v)",
-      "Bash(git stash *)"
+      "Bash(git stash *)",
+      "Bash(docker compose down *)",
+      "Bash(docker compose logs *)",
+      "Bash(curl *)",
+      "Bash(docker exec blackbox_db *)",
+      "Bash(docker exec blackbox_minio *)",
+      "Bash(docker run *)",
+      "Bash(docker exec blackbox_redis *)",
+      "Bash(docker exec blackbox_backend *)",
+      "Bash(rtk ls *)",
+      "Bash(rtk tree *)",
+      "Bash(rtk git *)"
     ]
   }
 }

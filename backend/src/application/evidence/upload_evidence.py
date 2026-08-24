@@ -3,12 +3,12 @@ from dataclasses import dataclass
 from typing import Optional
 from uuid import UUID
 
-from ....domain.entities import Evidence
-from ....domain.value_objects import UserId, MimeType, EvidenceId
-from ....domain.events import EvidenceUploaded
-from ....infrastructure.db.repositories import EvidenceRepository, CaseRepository
-from ....infrastructure.db.database import get_async_session_factory
-from ....infrastructure.storage import get_minio_client
+from src.domain.entities import Evidence
+from src.domain.value_objects import UserId, MimeType, EvidenceId
+from src.domain.events import EvidenceUploaded
+from src.infrastructure.db.repositories import EvidenceRepository, CaseRepository
+from src.infrastructure.db.database import get_async_session_factory
+from src.infrastructure.storage import get_minio_client
 
 
 @dataclass
@@ -80,7 +80,7 @@ class UploadEvidenceUseCase:
             )
 
             # Convert to model
-            from ....infrastructure.db.models import EvidenceModel
+            from src.infrastructure.db.models import EvidenceModel
             evidence_model = EvidenceModel(
                 id=evidence.id.value,
                 original_filename=evidence.original_filename,
@@ -97,7 +97,7 @@ class UploadEvidenceUseCase:
 
             # Link to cases if provided
             if command.case_ids:
-                from ....infrastructure.db.models import CaseEvidenceModel
+                from src.infrastructure.db.models import CaseEvidenceModel
                 for case_id in command.case_ids:
                     case = await self.case_repo.get(session, case_id)
                     if case:

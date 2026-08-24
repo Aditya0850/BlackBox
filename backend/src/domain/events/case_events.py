@@ -10,7 +10,9 @@ from ..value_objects import CaseId, UserId
 class CaseCreated:
     """Event fired when a case is created."""
     case_id: CaseId
+    case_number: str
     title: str
+    description: str
     created_by: UserId
     occurred_at: datetime = field(default_factory=datetime.utcnow)
 
