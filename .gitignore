@@ -54,3 +54,9 @@ demo_data/generation_scripts/demo_data_v2/demo_subset/
 backend/src/__init__.py
 backend/tests/__init__.py
 backend/tests/integration/__init__.py
+
+# Cache directories (added to ignore build caches)
+.pytest_cache/
+**/.pytest_cache/
+.ruff_cache/
+**/.ruff_cache/
